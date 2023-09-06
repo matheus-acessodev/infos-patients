@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <textarea name="dados" id="dados" cols="30" rows="10" placeholder="Dados PDF"></textarea><br>
+    <button onclick="retirarDados()">Copiar Dados Necessários</button><br>
+    <textarea name="dadosFinais" id="dadosFinais" cols="30" rows="10"></textarea>
+
+    <script>
+        function retirarDados() {
+            var dadosFinais = 'Nome\tData Nasc.\tNome da Mãe\n'
+
+            var dadosPDF = document.getElementById('dados').value.split('\n')
+
+            dadosPDF.forEach(dados => {
+                var infos = dados.split(' ');
+
+                if (isFinite(infos[0]) && infos[0] != '') {
+                    var continuar = true;
+                    if (infos[6] && infos[6] == 'CONSULTA' && continuar) {
+                        continuar = false;
+                        dadosFinais += infos[4] + " ";
+                    } else if (continuar) {
+                        dadosFinais += infos[4] + " ";
+                    }
+                    if (infos[7] && infos[7] == 'CONSULTA' && continuar) {
+                        continuar = false;
+                        dadosFinais += infos[5] + " ";
+                    } else if (continuar) {
+                        dadosFinais += infos[5] + " ";
+                    }
+                    if (infos[8] && infos[8] == 'CONSULTA' && continuar) {
+                        continuar = false;
+                        dadosFinais += infos[6] + " ";
+                    } else if (continuar) {
+                        dadosFinais += infos[6] + " ";
+                    }
+                    if (infos[9] && infos[9] == 'CONSULTA' && continuar) {
+                        continuar = false;
+                        dadosFinais += infos[7] + " ";
+                    } else if (continuar) {
+                        dadosFinais += infos[7] + " ";
+                    }
+                    if (infos[10] && infos[10] == 'CONSULTA' && continuar) {
+                        dadosFinais += infos[8] + " ";
+                        continuar = false;
+                    } else if (continuar) {
+                        dadosFinais += infos[8] + " ";
+                    }
+                    if (infos[11] && infos[11] == 'CONSULTA' && continuar) {
+                        dadosFinais += infos[9] + " ";
+                        continuar = false;
+                    } else if (continuar) {
+                        dadosFinais += infos[9] + " ";
+                    }
+                    if (infos[12] && infos[12] == 'CONSULTA' && continuar) {
+                        dadosFinais += infos[10] + " ";
+                        continuar = false;
+                    } else if (continuar) {
+                        dadosFinais += infos[10] + " ";
+                    }
+                    if (infos[13] && infos[13] == 'CONSULTA' && continuar) {
+                        dadosFinais += infos[11] + " ";
+                        continuar = false;
+                    } else if (continuar) {
+                        dadosFinais += infos[11] + " ";
+                    }
+                    if (infos[14] && infos[14] == 'CONSULTA' && continuar) {
+                        dadosFinais += infos[12] + " ";
+                        continuar = false;
+                    } else if (continuar) {
+                        dadosFinais += infos[12] + " ";
+                    }
+                    if (infos[15] && infos[15] == 'CONSULTA' && continuar) {
+                        dadosFinais += infos[13] + " ";
+                        continuar = false;
+                    } else if (continuar) {
+                        dadosFinais += infos[13] + " ";
+                    }
+                    if (infos[16] && infos[16] == 'CONSULTA' && continuar) {
+                        dadosFinais += infos[14] + " ";
+                        continuar = false;
+                    } else if (continuar) {
+                        dadosFinais += infos[14] + " ";
+                    }
+                    if (infos[17] && infos[17] == 'CONSULTA' && continuar) {
+                        dadosFinais += infos[15] + " ";
+                        continuar = false;
+                    } else if (continuar) {
+                        dadosFinais += infos[15] + " ";
+                    }
+                    dadosFinais += '\t'
+                }
+
+                if (infos[0] + " " + infos[1] + " " + infos[2] == 'DATA DE NASCIMENTO:') {
+                    dadosFinais += infos[3] + "\t";
+                }
+
+                if (infos[0] + " " + infos[1] + " " + infos[2] == 'NOME DA MÃE:') {
+                    for (let i = 3; i < infos.length; i++) {
+                        dadosFinais += infos[i] + " ";
+                    }
+                    dadosFinais += '\n'
+                }
+            });
+
+            var textDados = document.getElementById('dadosFinais');
+
+            textDados.value = dadosFinais;
+            textDados.select();
+            document.execCommand("copy");
+            alert("DADOS NECESSÁRIOS COPIADOS!")
+        }
+    </script>
+</body>
+
+</html>
